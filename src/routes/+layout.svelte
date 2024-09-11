@@ -1,8 +1,8 @@
 <script lang="ts">
-	import '../app.pcss';
+	import '../app.css';
 	import { onNavigate } from '$app/navigation';
 
-	let { children } = $props();
+	const { children } = $props();
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
