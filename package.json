@@ -63,11 +63,11 @@
 		"vite": "^5.4.4",
 		"vitest": "^2.0.5"
 	},
-	"type": "module",
 	"engines": {
 		"npm": "please-use-pnpm",
 		"yarn": "please-use-pnpm",
 		"pnpm": ">=9.0.0",
 		"node": ">=18.13.0"
-	}
+	},
+	"type": "module"
 }
