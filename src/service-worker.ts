@@ -3,9 +3,9 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 
-const sw = self as unknown as ServiceWorkerGlobalScope;
-
 import { build, files, version } from '$service-worker';
+
+const sw = globalThis.self as unknown as ServiceWorkerGlobalScope;
 
 const CACHE = `cache-${version}`;
 
@@ -23,7 +23,8 @@ sw.addEventListener('install', (event) => {
 sw.addEventListener('activate', (event) => {
 	async function deleteOldCaches() {
 		for (const key of await caches.keys()) {
-			if (key !== CACHE) await caches.delete(key);
+			if (key !== CACHE)
+				await caches.delete(key);
 		}
 	}
 
@@ -31,7 +32,8 @@ sw.addEventListener('activate', (event) => {
 });
 
 sw.addEventListener('fetch', (event) => {
-	if (event.request.method !== 'GET') return;
+	if (event.request.method !== 'GET')
+		return;
 
 	async function respond() {
 		const url = new URL(event.request.url);
@@ -49,7 +51,7 @@ sw.addEventListener('fetch', (event) => {
 			const response = await fetch(event.request);
 
 			if (!(response instanceof Response)) {
-				throw new Error('invalid response from fetch');
+				throw new TypeError('invalid response from fetch');
 			}
 
 			if (response.status === 200) {
@@ -57,7 +59,8 @@ sw.addEventListener('fetch', (event) => {
 			}
 
 			return response;
-		} catch (err) {
+		}
+		catch (err) {
 			const response = await cache.match(event.request);
 
 			if (response) {
