@@ -1,8 +1,17 @@
 <script lang='ts'>
+	import type { Snippet } from 'svelte';
+
 	import '../app.css';
+
+	import favicon from '$lib/assets/favicon.svg';
+
 	import { onNavigate } from '$app/navigation';
 
-	const { children } = $props();
+	interface Props {
+		children: Snippet;
+	}
+
+	const { children }: Props = $props();
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition)
@@ -16,5 +25,9 @@
 		});
 	});
 </script>
+
+<svelte:head>
+	<link href={favicon} rel='icon' />
+</svelte:head>
 
 {@render children()}
